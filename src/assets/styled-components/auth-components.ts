@@ -33,6 +33,10 @@ export const Input = styled.input`
 
   &[type="submit"] {
     cursor: pointer;
+    background-color: #5ea8c9;
+    border: 3px solid #5ea8c9;
+    font-weight: bold;
+    color: #eee;
     &:hover {
       transition: 0.5s;
       opacity: 0.8;

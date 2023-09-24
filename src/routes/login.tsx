@@ -11,6 +11,8 @@ import {
   Title,
   Wrapper,
 } from "../assets/styled-components/auth-components";
+import GithubButton from "../components/github-btn";
+import GoogleButton from "../components/google-btn";
 
 export default function CreateAccount() {
   const navigate = useNavigate();
@@ -71,6 +73,8 @@ export default function CreateAccount() {
       <Switcher>
         <Link to="/create-account">계정이 없으신가요? </Link>
       </Switcher>
+      <GithubButton />
+      <GoogleButton />
     </Wrapper>
   );
 }
