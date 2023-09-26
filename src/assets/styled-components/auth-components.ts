@@ -28,7 +28,7 @@ export const Input = styled.input`
   font-size: 16px;
   &:focus {
     outline: none;
-    border: 3px solid #79d2c9;
+    border: 3px solid #5ea8c9;
   }
 
   &[type="submit"] {
@@ -49,6 +49,7 @@ export const Error = styled.span`
 `;
 export const Switcher = styled.span`
   margin-top: 20px;
+  text-decoration: underline;
   a {
     color: #e0e0e0;
     text-decoration: none;
