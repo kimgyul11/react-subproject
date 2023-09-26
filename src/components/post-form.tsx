@@ -88,7 +88,7 @@ export default function PostForm() {
         await updateDoc(doc, {
           photo: url,
         });
-      } else {
+      } else if (file && file.size > 1024 * 2) {
         return alert("파일 크기는 1MB를 넘을 수 없습니다!");
       }
       setText("");
