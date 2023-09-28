@@ -1,4 +1,10 @@
-import { addDoc, collection, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { useState } from "react";
 import styled from "styled-components";
 import { auth, db, storage } from "../utils/firebase";
@@ -71,25 +77,32 @@ export default function PostForm() {
 
     try {
       setLoading(true);
-      const doc = await addDoc(collection(db, "moment"), {
+      const imgMaxSize = 1024 * 1024;
+      const docs = await addDoc(collection(db, "moment"), {
         text,
         createdAt: Date.now(),
         username: user.displayName || "소셜계정",
         userId: user.uid,
       });
-
-      if (file && file.size < 1024 * 2) {
+      //이미지 크기가 초과할경우 -> docs를 삭제하고 알림을 보낸다.
+      if (file && file.size > imgMaxSize) {
+        alert("파일 크기가 1MB를 초과합니다.");
+        await deleteDoc(doc(db, "moment", docs.id));
+        setText("");
+        setFile(null);
+        return;
+      }
+      //이미지가 알맞는 경우 업데이트를 한다.
+      if (file && file.size < imgMaxSize) {
         const locationRef = ref(
           storage,
-          `moment/${user.uid}/${doc.id}-${user.displayName}`
+          `moment/${user.uid}/${docs.id}-${user.displayName}`
         );
         const result = await uploadBytes(locationRef, file);
         const url = await getDownloadURL(result.ref);
-        await updateDoc(doc, {
+        await updateDoc(docs, {
           photo: url,
         });
-      } else if (file && file.size > 1024 * 2) {
-        return alert("파일 크기는 1MB를 넘을 수 없습니다!");
       }
       setText("");
       setFile(null);
