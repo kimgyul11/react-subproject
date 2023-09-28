@@ -3,7 +3,7 @@ import { MomentT } from "./moment";
 import { auth, db, storage } from "../utils/firebase";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   display: grid;
